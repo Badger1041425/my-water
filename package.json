@@ -2,7 +2,7 @@
   "name": "my-water",
   "version": "1.0.0",
   "description": "��#\u0000 \u0000m\u0000y\u0000-\u0000w\u0000a\u0000t\u0000e\u0000r\u0000\r\u0000 \u0000",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

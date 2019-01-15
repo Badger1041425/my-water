@@ -73,6 +73,14 @@ var getProductById = (server, request, productId) => {
             .QueryById(request.mongo.db, new ObjectID(request.params.id))
             .then((res) => {
                 resolve(res);
+            })
+            .catch((err) => {
+                console.log(err);
+                reject({
+                    status: 500,
+                    message: "ใจเย็นๆนะ",
+                    data: null
+                });
             });
-    })
+    });
 }

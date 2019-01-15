@@ -47,5 +47,5 @@ const QueryProduct = (db) => {
 }
 
 const QueryProductById = (db, productId) => {
-   return db.collection('product').findOne({ _id: productId});
+   return db.collection('product').findOne(productId);
 }

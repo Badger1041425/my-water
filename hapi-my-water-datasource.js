@@ -13,8 +13,8 @@ exports.plugin = {
         });
 
         server.method({
-            name: "datasource.product.Delete",
-            method: () => { },
+            name: "datasource.product.Remove",
+            method: RemoveProduct,
         });
 
         server.method({
@@ -39,4 +39,7 @@ const QueryProduct = (db) => {
             }
         });
      });
+    }
+const RemoveProduct = (db, id) => { 
+    return db.collection('product').deleteOne({_id:id});
 }

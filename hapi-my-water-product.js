@@ -13,6 +13,11 @@ exports.plugin = {
             method: addProduct
         });
 
+        server.method({
+            name: "product.RemoveProduct",
+            method: removeProduct
+        });
+
     }
 };
 
@@ -59,4 +64,58 @@ var getProductList = (server, request) => {
                 resolve(res);
             })
     });
+}
+var removeProduct = (server, request) =>{
+    const id = request.params.id;
+    return new Promise((resolve, reject) =>{
+        const ObjectID = request.mongo.ObjectID;
+
+        server.methods.datasource.product.Remove(request.mongo.db,new ObjectID(id))
+        .then((res) =>{
+            if (res.deletedCount) {
+                resolve({
+                    status: 200,
+                    message: "ลบได้เว้ยยยยยยย",
+                    data: null
+                });
+            } else {
+                reject({
+                    status: 500,
+                    message: "ลบไม่ได้เว้ยยยยยยย",
+                    data: null
+                });
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            reject({
+                status: 500,
+                message: "ลบไม่ได้เว้ยยยยยยย",
+                data: null
+            });
+        });
+    });
+}
+
+var getProductList = () => {
+    return {
+        "status": 200,
+        "message": "success",
+        "data": [
+            {
+                "id": 1,
+                "name": "Nam 1",
+                "imageUrl": "water.jpg",
+                "price": 99.99,
+                "expire": "2018-12-31"
+            },
+            {
+                "id": 1,
+                "name": "Nam 1",
+                "imageUrl": "water.jpg",
+                "price": 99.99,
+                "expire": "2018-12-31"
+            }
+        ]
+    };
 }

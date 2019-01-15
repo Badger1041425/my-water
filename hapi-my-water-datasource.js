@@ -9,7 +9,7 @@ exports.plugin = {
 
         server.method({
             name: "datasource.product.Update",
-            method: () => { },
+            method: UpdateProduct,
         });
 
         server.method({
@@ -31,15 +31,18 @@ const InsertProduct = (db, body) => {
 const QueryProduct = (db) => {
     return new Promise((resolve, reject) => {
         db.collection('product').find({})
-        .toArray((err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
-     });
-    }
-const RemoveProduct = (db, id) => { 
-    return db.collection('product').deleteOne({_id:id});
+            .toArray((err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+    });
+}
+const RemoveProduct = (db, id) => {
+    return db.collection('product').deleteOne({ _id: id });
+}
+const UpdateProduct = (db, id, body) => {
+    return db.collection('product').update({ _id: id }, body);
 }

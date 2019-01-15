@@ -8,48 +8,22 @@ const server = Hapi.server({
     port: process.env.PORT || 8000
 });
 
-// Add the route
-server.route({
-    method: 'GET',
-    path: '/hello',
-    handler: function (request, h) {
-        return 'helow';
-    }
-});
-
 // Add the route List Product
 server.route({
     method: 'GET',
     path: '/product/list',
     handler: () => { 
-        return {
-            "status": 200,
-            "message": "success",
-            "data": [
-                {
-                    "id": 1,
-                    "name": "Nam 1",
-                    "imageUrl": "water.jpg",
-                    "price": 99.99,
-                    "expire": "2018-12-31"
-                },
-                {
-                    "id": 1,
-                    "name": "Nam 1",
-                    "imageUrl": "water.jpg",
-                    "price": 99.99,
-                    "expire": "2018-12-31"
-                }
-            ]
-        };
+        return server.methods.product.ListProduct();
     }
 })
+
 
 
 // Start the server
 const start = async function () {
 
     try {
+        await server.register([require('./hapi-my-water-product')]);
         await server.start();
     }
     catch (err) {

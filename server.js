@@ -37,10 +37,10 @@ server.route({
 server.route({
     method: 'GET',
     path: '/product/{id}',
-    handler: (request, reply) => {
-        productId = request.params.id
+    async handler(request, reply) {
         return server.methods.product
-        .GetProductById(server, productId)
+        .GetProductById(server, request)
+        .then(reply);
     }
 });
 
@@ -58,7 +58,7 @@ server.route({
 server.route({
     method: "POST",
     path: "/product/add",
-    handler: (request, reply) => {
+    async handler(request, reply) {
         return server.methods.product
             .AddProduct(server, request)
             .then(reply);

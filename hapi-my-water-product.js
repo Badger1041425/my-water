@@ -66,6 +66,13 @@ var getProductList = (server, request) => {
     });
 }
 
-var getProductById = (server, productId) => {
-    return server.methods.datasource.product.QueryById(request.mongo.db, productId)
+var getProductById = (server, request, productId) => {
+    return new Promise((resolve, reject) => {
+        const ObjectID = request.mongo.ObjectID;
+        server.methods.datasource.product
+            .QueryById(request.mongo.db, new ObjectID(request.params.id))
+            .then((res) => {
+                resolve(res);
+            });
+    })
 }

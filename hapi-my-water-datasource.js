@@ -19,11 +19,24 @@ exports.plugin = {
 
         server.method({
             name: "datasource.product.Query",
-            method: () => { },
+            method: QueryProduct,
         });
     }
 };
 
-const InsertProduct = (db, body) => { 
+const InsertProduct = (db, body) => {
     return db.collection('product').insert(body);
+}
+
+const QueryProduct = (db) => {
+    return new Promise((resolve, reject) => {
+        db.collection('product').find({})
+        .toArray((err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+     });
 }

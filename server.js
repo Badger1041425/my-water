@@ -37,8 +37,10 @@ server.route({
 server.route({
     method: "GET",
     path: "/product/list",
-    handler: () => {
-        return server.methods.product.ListProduct();
+    handler: (request, reply) => {
+        return server.methods.product
+        .ListProduct(server, request)
+        .then(reply);
     }
 });
 

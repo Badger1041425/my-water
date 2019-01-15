@@ -12,6 +12,10 @@ exports.plugin = {
             name: "product.AddProduct",
             method: addProduct
         });
+        server.method({
+            name: "product.UpdateProduct",
+            method: updateProduct
+        });
 
     }
 };
@@ -52,6 +56,43 @@ const addProduct = (server, request) => {
 
 }
 
+const updateProduct = (server, request) => {
+    const body = {
+        name: request.payload.name,
+        imageUrl: request.payload.imageUrl,
+        price: request.payload.price,
+        expire: request.payload.expire
+    }
+
+    return new Promise((resolve, reject) => {
+        const ObjectID = request.mongo.ObjectID;
+        server.methods.datasource.product.Update(request.mongo.db, new ObjectID(request.params.id), body)
+            .then((res) => {
+                if (res.result.ok == 1) {
+                    console.log(res.ops)
+                    resolve({
+                        status: 200,
+                        message: "เพิ่มได้เว้ยยยยยยย",
+                        data: (res.ops && res.ops.length > 0) ? res.ops[0] : {}
+                    });
+                } else {
+                    reject({
+                        status: 500,
+                        message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                        data: null
+                    });
+                }
+            }).catch((error) => {
+                console.log(error);
+                reject({
+                    status: 500,
+                    message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                    data: null
+                });
+            });
+    });
+
+}
 
 var getProductList = () => {
     return {

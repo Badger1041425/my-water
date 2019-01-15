@@ -52,6 +52,16 @@ server.route({
     }
 });
 
+server.route({
+    method: "PUT",
+    path: "/product/update/{id}",
+    async handler(request, reply) {
+        return server.methods.product
+            .UpdateProduct(server, request)
+            .then(reply);
+    }
+});
+
 // Start the server
 const start = async function () {
     try {

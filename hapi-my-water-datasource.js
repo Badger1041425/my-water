@@ -9,7 +9,7 @@ exports.plugin = {
 
         server.method({
             name: "datasource.product.Update",
-            method: () => { },
+            method: UpdateProduct,
         });
 
         server.method({
@@ -24,6 +24,9 @@ exports.plugin = {
     }
 };
 
-const InsertProduct = (db, body) => { 
+const InsertProduct = (db, body) => {
     return db.collection('product').insert(body);
+}
+const UpdateProduct = (db, id, body) => {
+    return db.collection('product').update({_id:id}, body);
 }

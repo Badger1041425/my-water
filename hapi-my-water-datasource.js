@@ -13,8 +13,8 @@ exports.plugin = {
         });
 
         server.method({
-            name: "datasource.product.Delete",
-            method: () => { },
+            name: "datasource.product.Remove",
+            method: RemoveProduct,
         });
 
         server.method({
@@ -26,4 +26,8 @@ exports.plugin = {
 
 const InsertProduct = (db, body) => { 
     return db.collection('product').insert(body);
+}
+
+const RemoveProduct = (db, id) => { 
+    return db.collection('product').deleteOne({_id:id});
 }

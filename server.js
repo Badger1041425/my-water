@@ -42,13 +42,22 @@ server.route({
     }
 });
 
+// Remove product
+server.route({
+    method: "DELETE",
+    path: "/product/del/{id}",
+    handler: (request, reply) => {
+        return server.methods.product
+        .RemoveProduct(server, request)
+        .then(reply);
+    }
+});
+
 server.route({
     method: "POST",
     path: "/product/add",
     handler: (request, reply) => {
-        return server.methods.product
-            .AddProduct(server, request)
-            .then(reply);
+        return server.methods.product.AddProduct(server, request).then(reply);
     }
 });
 

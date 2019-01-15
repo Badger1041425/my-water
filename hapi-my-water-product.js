@@ -13,6 +13,11 @@ exports.plugin = {
             method: addProduct
         });
 
+        server.method({
+            name: "product.RemoveProduct",
+            method: removeProduct
+        });
+
     }
 };
 
@@ -52,6 +57,37 @@ const addProduct = (server, request) => {
 
 }
 
+var removeProduct = (server, request) =>{
+    const id = request.params.id;
+    return new Promise((resolve, reject) =>{
+        const ObjectID = request.mongo.ObjectID;
+
+        server.methods.datasource.product.Remove(request.mongo.db,new ObjectID(id))
+        .then((res) =>{
+            if (res.deletedCount) {
+                resolve({
+                    status: 200,
+                    message: "ลบได้เว้ยยยยยยย",
+                    data: null
+                });
+            } else {
+                reject({
+                    status: 500,
+                    message: "ลบไม่ได้เว้ยยยยยยย",
+                    data: null
+                });
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            reject({
+                status: 500,
+                message: "ลบไม่ได้เว้ยยยยยยย",
+                data: null
+            });
+        });
+    });
+}
 
 var getProductList = () => {
     return {

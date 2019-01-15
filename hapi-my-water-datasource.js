@@ -21,6 +21,11 @@ exports.plugin = {
             name: "datasource.product.Query",
             method: QueryProduct,
         });
+
+        server.method({
+            name: "datasource.product.QueryById",
+            method: QueryProductById
+        });
     }
 };
 
@@ -39,4 +44,8 @@ const QueryProduct = (db) => {
             }
         });
      });
+}
+
+const QueryProductById = (db, id) => {
+    return db.collection('product').find(id)
 }

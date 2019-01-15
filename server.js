@@ -33,6 +33,17 @@ server.route({
         }
     }
 });
+
+server.route({
+    method: 'GET',
+    path: '/product/{id}',
+    handler: (request, reply) => {
+        productId = request.params.id
+        return server.methods.product
+        .GetProductById(server, productId)
+    }
+});
+
 // Add the route List Product
 server.route({
     method: "GET",

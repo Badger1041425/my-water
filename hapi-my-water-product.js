@@ -13,6 +13,11 @@ exports.plugin = {
             method: addProduct
         });
 
+        server.method({
+            name: "product.GetProductById",
+            method: getProductById
+        })
+
     }
 };
 
@@ -59,4 +64,8 @@ var getProductList = (server, request) => {
                 resolve(res);
             })
     });
+}
+
+var getProductById = (server, productId) => {
+    return server.methods.datasource.product.QueryById(request.mongo.db, productId)
 }

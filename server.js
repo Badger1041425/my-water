@@ -13,7 +13,14 @@ const dbOpts = {
 // Create a server with a host and port
 const server = Hapi.server({
     host: "0.0.0.0",
-    port: process.env.PORT || 8000
+    port: process.env.PORT || 8000,
+    routes: {
+        "cors": {
+            origin: ["*"],
+            headers: ["Accept", "Content-Type"],
+            additionalHeaders: ["X-Requested-With"]
+        }
+    }
 });
 
 server.route({

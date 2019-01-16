@@ -95,7 +95,6 @@ const start = async function () {
             require("./hapi-my-water-product"),
             require("./hapi-my-water-datasource")
         ]);
-        await server.connection({ routes: { cors: true } });
         await server.start();
     } catch (err) {
         console.log(err);

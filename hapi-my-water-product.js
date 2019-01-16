@@ -66,7 +66,7 @@ var getProductList = (server, request) => {
     });
 }
 
-var getProductById = (server, request, productId) => {
+var getProductById = (server, request) => {
     return new Promise((resolve, reject) => {
         const ObjectID = request.mongo.ObjectID;
         server.methods.datasource.product

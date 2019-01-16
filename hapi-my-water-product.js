@@ -22,6 +22,11 @@ exports.plugin = {
             method: removeProduct
         });
 
+        server.method({
+            name: "product.GetProductById",
+            method: getProductById
+        })
+
     }
 };
 
@@ -131,6 +136,25 @@ const updateProduct = (server, request) => {
                 reject({
                     status: 500,
                     message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                    data: null
+                });
+            });
+    });
+}
+
+var getProductById = (server, request) => {
+    return new Promise((resolve, reject) => {
+        const ObjectID = request.mongo.ObjectID;
+        server.methods.datasource.product
+            .QueryById(request.mongo.db, new ObjectID(request.params.id))
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.log(err);
+                reject({
+                    status: 500,
+                    message: "ใจเย็นๆนะ",
                     data: null
                 });
             });

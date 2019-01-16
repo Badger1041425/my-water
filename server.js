@@ -33,6 +33,17 @@ server.route({
         }
     }
 });
+
+server.route({
+    method: 'GET',
+    path: '/product/{id}',
+    async handler(request, reply) {
+        return server.methods.product
+        .GetProductById(server, request)
+        .then(reply);
+    }
+});
+
 // Add the route List Product
 server.route({
     method: "GET",

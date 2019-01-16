@@ -21,6 +21,11 @@ exports.plugin = {
             name: "datasource.product.Query",
             method: QueryProduct,
         });
+
+        server.method({
+            name: "datasource.product.QueryById",
+            method: QueryProductById
+        });
     }
 };
 
@@ -45,4 +50,7 @@ const RemoveProduct = (db, id) => {
 }
 const UpdateProduct = (db, id, body) => {
     return db.collection('product').update({ _id: id }, body);
+}
+const QueryProductById = (db, productId) => {
+   return db.collection('product').findOne(productId);
 }
